@@ -28,4 +28,6 @@ def home_page_view(request):
 #     pass
 
 def logout_user(request):
-    pass
+    logout(request)
+    messages.success(request, "You have been logget out...")
+    return redirect('home-page-view')
