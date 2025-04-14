@@ -10,22 +10,44 @@
 <br>
 <h1>Records...</h1>
 {% if records %}
-    <ul>
+
+  <table class="table">
+
+    <thead>
+        
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Address</th>
+        <th scope="col">City</th>
+        <th scope="col">State</th>
+        <th scope="col">Zipcode</th>
+        <th scope="col">Created At</th>
+      </tr>
+
+    </thead>
+
+    <tbody>
+
         {% for record in records %}
-            <li>
-                {{ record.first_name }}
-                {{ record.last_name }}
-                {{ record.email }}
-                {{ record.phone }}
-                {{ record.address }}
-                {{ record.city }}
-                {{ record.state }}
-                {{ record.zipcode }}
-                {{ record.id }}
-                {{ record.created_at }}
-            </li>
+          <tr>
+            <td>{{ record.id }}</td>
+            <td>{{ record.first_name }} {{ record.last_name }}</td>
+            <td>{{ record.email }}</td>
+            <td>{{ record.phone }}</td>
+            <td>{{ record.address }}</td>
+            <td>{{ record.city }}</td>
+            <td>{{ record.state }}</td>
+            <td>{{ record.zipcode }}</td>
+            <td>{{ record.created_at }}</td>
+          </tr>
          {% endfor %}
-    </ul>
+
+
+    </tbody>
+  </table>
 
 {% else %}
 <p> No records to show...</p>
