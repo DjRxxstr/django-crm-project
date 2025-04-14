@@ -18,7 +18,7 @@ def home_page_view(request):
             messages.success(request, "You Have Been Logged In!")
             return redirect('home-page-view')
         else:
-            messages.success(request, "There was an error in logging in..." )
+            messages.success(request, "Wrong credentials entered" )
             return redirect('home-page-view')
 
     else:
@@ -31,3 +31,6 @@ def logout_user(request):
     logout(request)
     messages.success(request, "You have been logged out...")
     return redirect('home-page-view')
+
+def register_user(request):
+    return render(request, 'register.html', {})
