@@ -2,8 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm
+from .models import Record
 
 def home_page_view(request):
+    records = Record.objects.all()
+
     #To check if logging in
     #If logging in -> request will be POST
     #If already logged in -> request will be GET
@@ -23,7 +26,10 @@ def home_page_view(request):
             return redirect('home-page-view')
 
     else:
-        return render(request, 'home.html', {})
+        context = {
+            'records' : records
+        }
+        return render(request, 'home.html', context)
 
 # def login_user(request):
 #     pass

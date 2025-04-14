@@ -18,3 +18,6 @@ class Record(models.Model):
     def __str__(self):
         # just to show full name when printing the object (like in admin)
         return (f"{self.first_name} {self.last_name}")
+
+        # So, if we do print(record), then it will just display the
+        # first and last name, instead of the entire details.
