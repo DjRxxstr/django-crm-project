@@ -11,9 +11,9 @@
 <h1>Records...</h1>
 {% if records %}
 
-  <table class="table">
+  <table class="table table-striped table-hover table-bordered">
 
-    <thead>
+    <thead class="table-dark">
         
       <tr>
         <th scope="col">id</th>
@@ -29,7 +29,7 @@
 
     </thead>
 
-    <tbody>
+    <tbody class="table-group-divider">
 
         {% for record in records %}
           <tr>
