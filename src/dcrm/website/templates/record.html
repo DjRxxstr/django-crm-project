@@ -97,6 +97,12 @@
             DELETE RECORD
     </button>
 
+    <button type="button" 
+           class="btn btn-danger"
+           onclick="window.location=`{% url 'update_record' customer_record.id %}`">
+            UPDATE RECORD
+    </button>
+
 </div>
 
 {% endblock %}

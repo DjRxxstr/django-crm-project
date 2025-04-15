@@ -137,4 +137,28 @@ def add_record(request):
         messages.success(request, "You must be logged in to delete records")
         return redirect('home-page-view')
 
+def update_record(request, id):
+    if request.user.is_authenticated:
+        record = Record.objects.get(id = id)
+
+        form = CustomerRecordForm(request.POST or None, instance = record)
+
+        if form.is_valid():
+            form.save()
+            print(form.cleaned_data)
+            messages.success(request, "You have Successfully updated a Record!")
+            return redirect('home-page-view')
+
+        context = {
+            'id' : id,
+            'form' : form
+        }
+
+        return render(request, 'update.html', context)
+
+    else:
+        messages.success(request, "You must be logged in to update records")
+        return redirect('home-page-view')
+
+
     
