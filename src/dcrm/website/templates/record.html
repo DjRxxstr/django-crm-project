@@ -91,6 +91,12 @@
           GO BACK TO HOME
    </button>
 
+   <button type="button" 
+           class="btn btn-danger"
+           onclick="window.location=`{% url 'delete_record' customer_record.id %}`">
+            DELETE RECORD
+    </button>
+
 </div>
 
 {% endblock %}
