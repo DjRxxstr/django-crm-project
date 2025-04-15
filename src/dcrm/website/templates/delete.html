@@ -2,14 +2,16 @@
 
 {% block content %}
 
+<div class = "col-md-6 offset-md-3">
+
 <form action="{% url 'delete_record' customer_record.id %}" method='POST'>
     {% csrf_token %}
 
-    <h3>
-        <div class="alert alert-warning" role="alert">
-            Do you want to delete the following customer record?
-        </div>  
-    </h3>
+    <div class="alert alert-warning" role="alert">
+            <strong>
+                Do you want to delete the following customer record?
+            </strong>
+    </div> 
     <div class="card text-bg-light mb-3">
         <div class="card-header">
             <strong> {{ customer_record }} </strong>
@@ -58,5 +60,7 @@
     </p>
 
 </form>
+
+</div>
 
 {% endblock %}
