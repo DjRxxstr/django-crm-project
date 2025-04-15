@@ -6,4 +6,15 @@
     <h1>Add Record</h1>
 </div>
 
+<form method = "POST" action = "{% url 'add_record' %}">
+    {% csrf_token %}
+
+    {{ form.as_p}}
+
+    <button type="submit" class="btn btn-secondary">
+        Add Record
+    </button>
+
+</form>
+
 {% endblock %}

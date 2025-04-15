@@ -5,12 +5,13 @@ class Record(models.Model):
     created_at  = models.DateTimeField(auto_now_add = True)
     first_name  = models.CharField(max_length = 50)
     last_name   = models.CharField(max_length = 50)
-    email       = models.CharField(max_length = 50, null = True, blank = True)
-    phone       = models.CharField(max_length = 15, null = True, blank  = True)
+    email       = models.CharField(max_length = 50, default = None)
+    phone       = models.CharField(max_length = 15, default = None)
     address     = models.CharField(max_length = 100)
     city        = models.CharField(max_length = 50)
     state       = models.CharField(max_length = 50)
     zipcode     = models.CharField(max_length = 10)
+
 
     # We use __str__ to define how the object is displayed
     # __init__ is for object creation

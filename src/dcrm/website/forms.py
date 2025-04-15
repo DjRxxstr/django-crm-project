@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from .models import Record
 
 class SignUpForm(UserCreationForm):
     email   = forms.EmailField(
@@ -59,4 +60,82 @@ class SignUpForm(UserCreationForm):
         self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
         self.fields['password2'].label = ''
         self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'
-        
+
+
+
+
+class CustomerRecordForm(forms.ModelForm):
+    first_name  = forms.CharField(
+                            required = True,
+                            widget = forms.TextInput(
+                                attrs={
+                                    "placeholder":"Enter First Name",
+                                    "class" : "form-control"
+                                }
+                            ))
+    last_name   = forms.CharField(
+                            required = True,
+                            widget = forms.TextInput(
+                                attrs={
+                                    "placeholder":"Enter Last Name",
+                                    "class" : "form-control"
+                                }
+                            ))
+
+    email   = forms.CharField(
+                            required = True,
+                            widget = forms.TextInput(
+                                attrs={
+                                    "placeholder":"Enter Email",
+                                    "class" : "form-control"
+                                }
+                            ))
+
+    phone   = forms.CharField(
+                            required = True,
+                            widget = forms.TextInput(
+                                attrs={
+                                    "placeholder":"Enter Phone Number",
+                                    "class" : "form-control"
+                                }
+                            ))
+
+    address   = forms.CharField(
+                            required = True,
+                            widget = forms.TextInput(
+                                attrs={
+                                    "placeholder":"Enter Address",
+                                    "class" : "form-control"
+                                }
+                            ))
+                        
+    city   = forms.CharField(
+                            required = True,
+                            widget = forms.TextInput(
+                                attrs={
+                                    "placeholder":"Enter City",
+                                    "class" : "form-control"
+                                }
+                            ))
+
+    state   = forms.CharField(
+                            required = True,
+                            widget = forms.TextInput(
+                                attrs={
+                                    "placeholder":"Enter State",
+                                    "class" : "form-control"
+                                }
+                            ))
+
+    zipcode   = forms.CharField(
+                            required = True,
+                            widget = forms.TextInput(
+                                attrs={
+                                    "placeholder":"Enter Zipcode",
+                                    "class" : "form-control"
+                                }
+                            ))
+
+    class Meta:
+        model = Record
+        fields = '__all__'
