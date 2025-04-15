@@ -115,3 +115,7 @@ def delete_record(request, id):
     else:
         messages.success(request, "You must be logged in to delete records")
         return redirect('home-page-view')
+
+
+def add_record(request):
+    return render(request, 'add.html', {})

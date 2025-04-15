@@ -5,7 +5,8 @@ from .views import (
     logout_user,
     register_user,
     customer_record,
-    delete_record
+    delete_record,
+    add_record
     );
 
 urlpatterns = [
@@ -14,5 +15,6 @@ urlpatterns = [
     path('logout/', logout_user, name = 'logout-user'),
     path('register/', register_user, name = 'register-user'),
     path('record/<int:id>', customer_record, name = 'customer_record'),
-    path('record/<int:id>/delete', delete_record, name = 'delete_record')
+    path('record/<int:id>/delete', delete_record, name = 'delete_record'),
+    path('add/', add_record, name = 'add_record')
 ]
