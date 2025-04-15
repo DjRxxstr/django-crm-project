@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="{% url 'delete_record' customer_record.id %}" method='POST'>
+    {% csrf_token %}
+
+    <h3>
+        <div class="alert alert-warning" role="alert">
+            Do you want to delete the following customer record?
+        </div>  
+    </h3>
+    <div class="card text-bg-light mb-3">
+        <div class="card-header">
+            <strong> {{ customer_record }} </strong>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            <strong>EMAIL :</strong> {{ customer_record.email }}
+          </p>
+    
+          <p class="card-text">
+            <strong>PHONE :</strong> {{ customer_record.phone }}
+          </p>
+    
+          <p class="card-text">
+            <strong>ADDRESS :</strong> {{ customer_record.address }}
+          </p>
+    
+          <p class="card-text">
+            <strong>CITY :</strong> {{ customer_record.city }}
+          </p>
+    
+          <p class="card-text">
+            <strong>STATE :</strong> {{ customer_record.state }}
+          </p>
+    
+          <p class="card-text">
+            <strong>ZIPCODE :</strong> {{ customer_record.zipcode }}
+          </p>
+    
+          <p class="card-text">
+            <strong>CREATED AT :</strong> {{ customer_record.created_at }}
+          </p>
+    
+        </div>
+      </div>
+
+    <p>
+        <button class="btn btn-danger" type="submit">
+            Delete
+        </button> 
+
+        <button type="button" class="btn btn-dark"
+    onclick = "window.location=`{% url 'customer_record' customer_record.id %}`">
+                Cancel
+        </button>
+    </p>
+
+</form>
+
+{% endblock %}

@@ -98,10 +98,19 @@ def customer_record(request, id):
 def delete_record(request, id):
     if request.user.is_authenticated:
         delete_it = Record.objects.get(id = id)
-        delete_it.delete()
 
-        messages.success(request, "Record Deleted Successfully!")
-        return redirect('home-page-view')
+        if request.method == 'POST':
+            print(request.method)
+            delete_it.delete()
+            print(request.method)
+            messages.success(request, "Record Deleted Successfully!")
+            return redirect('home-page-view')
+
+        context = {
+            'customer_record' : delete_it
+        }
+
+        return render(request, 'delete.html', context)
 
     else:
         messages.success(request, "You must be logged in to delete records")
