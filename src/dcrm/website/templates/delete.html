@@ -12,7 +12,8 @@
                 Do you want to delete the following customer record?
             </strong>
     </div> 
-    <div class="card text-bg-light mb-3">
+    <br>
+    <div class="card text-bg-light mb-3 shadow-sm border-light-subtle">
         <div class="card-header">
             <strong> {{ customer_record }} </strong>
         </div>
@@ -48,16 +49,20 @@
         </div>
       </div>
 
-    <p>
-        <button class="btn btn-danger" type="submit">
-            Delete
-        </button> 
+      <div class="d-flex justify-content-center flex-wrap gap-3 mt-4">
 
-        <button type="button" class="btn btn-dark"
-    onclick = "window.location=`{% url 'customer_record' customer_record.id %}`">
+        <button type="submit" 
+                class="btn btn-outline-danger px-4 py-2 rounded-pill shadow-sm fw-semibold">
+                Delete
+        </button>
+
+        <button type="button" 
+                class="btn btn-outline-dark px-4 py-2 rounded-pill shadow-sm fw-semibold"
+                onclick="window.location.href=`{% url 'customer_record' customer_record.id %}`">
                 Cancel
         </button>
-    </p>
+
+      </div>
 
 </form>
 

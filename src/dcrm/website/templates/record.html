@@ -2,30 +2,27 @@
 
 {% block content %}
 
-<div class = "col-md-6 offset-md-3">
+<div class="container py-4">
 
-<br>
-
-<table class="table table-striped table-hover table-bordered">
-
-    <thead class="table-dark">
-        
-      <tr>
-        <th scope="col">id</th>
-        <th scope="col">Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Phone</th>
-        <th scope="col">Address</th>
-        <th scope="col">City</th>
-        <th scope="col">State</th>
-        <th scope="col">Zipcode</th>
-        <th scope="col">Created At</th>
-      </tr>
-
-    </thead>
-
-    <tbody class="table-group-divider">
+  <!-- Full-width table -->
+  <div class="card shadow-sm rounded-4 mb-4">
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered align-middle mb-0">
+        <thead class="table-dark text-center">
           <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Address</th>
+            <th scope="col">City</th>
+            <th scope="col">State</th>
+            <th scope="col">Zipcode</th>
+            <th scope="col">Created At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-row">
             <td>{{ customer_record.id }}</td>
             <td>{{ customer_record }}</td>
             <td>{{ customer_record.email }}</td>
@@ -34,70 +31,59 @@
             <td>{{ customer_record.city }}</td>
             <td>{{ customer_record.state }}</td>
             <td>{{ customer_record.zipcode }}</td>
-            <td>{{ customer_record.created_at }}</td>
+            <td>{{ customer_record.created_at|date:"Y-m-d H:i" }}</td>
           </tr>
-    </tbody>
-  </table>
-
-  <br>
-
-  <h2>Customer Card</h2>
-
-  <div class="card text-bg-light mb-3">
-    <div class="card-header">
-        <strong> {{ customer_record }} </strong>
-    </div>
-    <div class="card-body">
-      <p class="card-text">
-        <strong>EMAIL :</strong> {{ customer_record.email }}
-      </p>
-
-      <p class="card-text">
-        <strong>PHONE :</strong> {{ customer_record.phone }}
-      </p>
-
-      <p class="card-text">
-        <strong>ADDRESS :</strong> {{ customer_record.address }}
-      </p>
-
-      <p class="card-text">
-        <strong>CITY :</strong> {{ customer_record.city }}
-      </p>
-
-      <p class="card-text">
-        <strong>STATE :</strong> {{ customer_record.state }}
-      </p>
-
-      <p class="card-text">
-        <strong>ZIPCODE :</strong> {{ customer_record.zipcode }}
-      </p>
-
-      <p class="card-text">
-        <strong>CREATED AT :</strong> {{ customer_record.created_at }}
-      </p>
-
+        </tbody>
+      </table>
     </div>
   </div>
 
   <br>
 
-  <button type="button" 
-          class="btn btn-dark"
-          onclick="window.location=`{% url 'home-page-view' %}`">
-          GO BACK TO HOME
-   </button>
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8 col-xl-6">
 
-   <button type="button" 
-           class="btn btn-danger"
-           onclick="window.location=`{% url 'delete_record' customer_record.id %}`">
-            DELETE RECORD
-    </button>
+      <h2 class="text-center">Customer Card</h2>
 
-    <button type="button" 
-            class="btn btn-info"
-           onclick="window.location=`{% url 'update_record' customer_record.id %}`">
-            UPDATE RECORD
-    </button>
+      <div class="card text-bg-light mb-3">
+        <div class="card-header">
+            <strong> {{ customer_record }} </strong>
+        </div>
+        <div class="card-body">
+          <p class="card-text"><strong>EMAIL :</strong> {{ customer_record.email }}</p>
+          <p class="card-text"><strong>PHONE :</strong> {{ customer_record.phone }}</p>
+          <p class="card-text"><strong>ADDRESS :</strong> {{ customer_record.address }}</p>
+          <p class="card-text"><strong>CITY :</strong> {{ customer_record.city }}</p>
+          <p class="card-text"><strong>STATE :</strong> {{ customer_record.state }}</p>
+          <p class="card-text"><strong>ZIPCODE :</strong> {{ customer_record.zipcode }}</p>
+          <p class="card-text"><strong>CREATED AT :</strong> {{ customer_record.created_at }}</p>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center flex-wrap gap-3 mt-4">
+
+        <button type="button" 
+                class="btn btn-outline-dark px-4 py-2 rounded-pill shadow-sm fw-semibold"
+                onclick="window.location=`{% url 'home-page-view' %}`">
+                Home
+        </button>
+
+        <button type="button" 
+                class="btn btn-outline-danger px-4 py-2 rounded-pill shadow-sm fw-semibold"
+                onclick="window.location=`{% url 'delete_record' customer_record.id %}`">
+                Delete
+        </button>
+
+        <button type="button" 
+                class="btn btn-outline-info px-4 py-2 rounded-pill shadow-sm fw-semibold text-dark"
+                onclick="window.location=`{% url 'update_record' customer_record.id %}`">
+                Update
+        </button>
+
+      </div>
+
+    </div>
+  </div>
 
 </div>
 

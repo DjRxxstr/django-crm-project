@@ -2,19 +2,62 @@
 
 {% block content %}
 
-<div class = "col-md-6 offset-md-3">
-    <h1>Update Record</h1>
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-8 col-lg-6">
+
+            <div class="card shadow-lg rounded-4 border-0">
+
+                <div class="card-body p-4">
+
+                    <h3 class="card-title text-center mb-4 text-body">
+                        Update Record
+                    </h3>
+
+                    <form method = "POST" action = "{% url 'update_record' id%}">
+                        {% csrf_token %}
+                        
+                        {% if messages %}
+
+                            {% for message in messages %}
+
+                            <div class="alert alert-primary alert-dismissible fade show d-flex justify-content-between align-items-center" role="alert">
+
+                                <div class="d-flex align-items-center">
+
+                                    <svg class="bi flex-shrink-0 me-2" width="20" height="20" role="img" aria-label="Info:">
+                                        <use xlink:href="#info-fill"/>
+                                    </svg>
+
+                                    <div>{{ message }}</div>
+
+                                </div>
+
+                                <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
+                                
+                            </div>
+
+                            {% endfor %}
+
+                        {% endif %}
+
+                        {{ form.as_p }}
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                Update Record
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<form method = "POST" action = "{% url 'update_record' id%}">
-    {% csrf_token %}
-
-    {{ form.as_p}}
-
-    <button type="submit" class="btn btn-success">
-        Save
-    </button>
-
-</form>
-
 {% endblock %}
+

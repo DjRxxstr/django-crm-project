@@ -83,7 +83,8 @@ def delete_record(request, id):
             return redirect('home-page-view')
 
         context = {
-            'customer_record' : delete_it
+            'customer_record' : delete_it,
+            'fun' : 'delete'
         }
 
         return render(request, 'delete.html', context)
@@ -104,7 +105,8 @@ def add_record(request):
             return redirect('add_record')
 
         context = {
-            'form' : form
+            'form' : form,
+            'fun' : 'add'
         }
 
         return render(request, 'add.html', context)
@@ -123,11 +125,12 @@ def update_record(request, id):
             form.save()
             print(form.cleaned_data)
             messages.success(request, "You have Successfully updated a Record!")
-            return redirect('home-page-view')
+            return redirect('update_record', id=id)
 
         context = {
             'id' : id,
-            'form' : form
+            'form' : form,
+            'fun' : 'update'
         }
 
         return render(request, 'update.html', context)
