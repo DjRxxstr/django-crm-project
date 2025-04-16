@@ -4,6 +4,7 @@ from django.contrib import messages
 from .forms import SignUpForm, CustomerRecordForm
 from .models import Record
 
+
 def home_page_view(request):
     records = Record.objects.all()
 
