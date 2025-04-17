@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: django-crm
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn src.dcrm.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: src.dcrm.settings
+      - key: PYTHON_VERSION
+        value: 3.9
