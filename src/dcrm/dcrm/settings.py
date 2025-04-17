@@ -77,14 +77,15 @@ WSGI_APPLICATION = 'dcrm.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'crm-database',
-        'USER': 'postgres',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.environ.get('DB_NAME', 'crm-database'),  # Use the environment variable for the database name
+        'USER': os.environ.get('DB_USER', 'postgres'),  # Use the environment variable for the user
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'password'),  # Use the environment variable for the password
+        'HOST': os.environ.get('DB_HOST', 'localhost'),  # Use the environment variable for the host
+        'PORT': os.environ.get('DB_PORT', '5432'),  # Use the environment variable for the port
     }
 }
 
