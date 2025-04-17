@@ -5,6 +5,8 @@ from .forms import SignUpForm, CustomerRecordForm
 from .models import Record
 from django.contrib.auth.models import Group
 from .decorators import role_required
+import csv
+from django.http import HttpResponse
 
 
 def home_page_view(request):
@@ -77,6 +79,7 @@ def register_user(request):
 
     return render(request, 'register.html', context)
 
+@role_required(allowed_roles=['Admin', 'Staff', 'Viewer'])
 def customer_record(request, id):
     if request.user.is_authenticated:
         customer_record = Record.objects.get(id = id)
@@ -88,9 +91,9 @@ def customer_record(request, id):
 
         return render(request, 'record.html', context)
 
-    else:
-        messages.success(request, "You must be logged in to view records")
-        return redirect('home-page-view')
+    # else:
+    #     messages.success(request, "You must be logged in to view records")
+    #     return redirect('home-page-view')
 
 @role_required(allowed_roles=['Admin'])
 def delete_record(request, id):
@@ -111,9 +114,9 @@ def delete_record(request, id):
 
         return render(request, 'delete.html', context)
 
-    else:
-        messages.success(request, "You must be logged in to delete records")
-        return redirect('home-page-view')
+    # else:
+    #     messages.success(request, "You must be logged in to delete records")
+    #     return redirect('home-page-view')
 
 @role_required(allowed_roles=['Admin', 'Staff'])
 def add_record(request):
@@ -133,9 +136,9 @@ def add_record(request):
 
         return render(request, 'add.html', context)
 
-    else:
-        messages.success(request, "You must be logged in to delete records")
-        return redirect('home-page-view')
+    # else:
+    #     messages.success(request, "You must be logged in to delete records")
+    #     return redirect('home-page-view')
 
 @role_required(allowed_roles=['Admin', 'Staff'])
 def update_record(request, id):
@@ -158,9 +161,36 @@ def update_record(request, id):
 
         return render(request, 'update.html', context)
 
-    else:
-        messages.success(request, "You must be logged in to update records")
-        return redirect('home-page-view')
+    # else:
+    #     messages.success(request, "You must be logged in to update records")
+    #     return redirect('home-page-view')
 
 
-    
+@role_required(allowed_roles=['Admin'])
+def export_csv(request):
+    if request.user.is_authenticated:
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=customers.csv'
+
+        writer = csv.writer(response)
+        writer.writerow(['ID', 'First Name', 'Last Name', 'Email', 'Phone', 'Address', 'City', 'State', 'Zipcode', 'Created At'])
+
+        from .models import Record
+        records = Record.objects.all()
+
+        for record in records:
+            writer.writerow([
+                record.id,
+                record.first_name,
+                record.last_name,
+                record.email,
+                record.phone,
+                record.address,
+                record.city,
+                record.state,
+                record.zipcode,
+                record.created_at.strftime("%Y-%m-%d %H:%M")
+            ])
+
+        return response
+

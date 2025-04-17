@@ -7,7 +7,8 @@ from .views import (
     customer_record,
     delete_record,
     add_record,
-    update_record
+    update_record,
+    export_csv
     );
 
 urlpatterns = [
@@ -18,5 +19,6 @@ urlpatterns = [
     path('record/<int:id>', customer_record, name = 'customer_record'),
     path('record/<int:id>/delete', delete_record, name = 'delete_record'),
     path('add/', add_record, name = 'add_record'),
-    path('record/<int:id>/update', update_record, name = 'update_record')
+    path('record/<int:id>/update', update_record, name = 'update_record'),
+    path('export-csv/', export_csv, name = 'export_csv')
 ]
