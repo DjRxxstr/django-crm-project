@@ -1,54 +1,80 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-3">
   <div class="container-fluid">
     <a class="navbar-brand fw-bold fs-4" href="{% url 'home-page-view' %}">
-      <span class = "fst-italic fw-light">Django</span><span class="text-white fw-bold">CRM</span>
+      <span class="fst-italic fw-light">Django</span><span class="text-white fw-bold">CRM</span>
     </a>
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    
+
     <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
+        {% if user_role == 'Admin' or user_role == 'Staff' %}
         <li class="nav-item">
-          <a class="nav-link {% if request.path == '/' %}active{% endif %}" 
+          <a class="nav-link px-3 py-2 rounded {% if request.path == '/admin/' %}active bg-secondary fw-semibold{% endif %}" 
+             href="{% url 'admin:index' %}">
+            Admin
+          </a>
+        </li>
+        {% endif %}
+
+        <li class="nav-item">
+          <a class="nav-link px-3 py-2 rounded {% if request.resolver_match.url_name == 'home-page-view' %}active bg-secondary fw-semibold{% endif %}" 
              href="{% url 'home-page-view' %}">
             Home
           </a>
         </li>
 
         {% if user.is_authenticated %}
+
+        {% if user_role == 'Admin' or user_role == 'Staff' %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'add_record' %}">
+          <a class="nav-link px-3 py-2 rounded {% if request.path == '/add/' %}active bg-secondary fw-semibold{% endif %}" 
+             href="{% url 'add_record' %}">
             Add Record
           </a>
         </li>
+        {% endif %}
+
+        <!-- {% if user_role == 'Admin' %}
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link px-3 py-2 rounded {% if request.path == '/delete/' %}active bg-secondary fw-semibold{% endif %}" 
+             href="{% url 'home-page-view' %}">
             Delete Record
           </a>
         </li>
+        {% endif %}
+
+        {% if user_role == 'Admin' or user_role == 'Staff' %}
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link px-3 py-2 rounded {% if request.path == '/update/' %}active bg-secondary fw-semibold{% endif %}" 
+             href="{% url 'home-page-view' %}">
             Update Record
           </a>
         </li>
+        {% endif %} -->
+
         <li class="nav-item">
-          <a class="nav-link text-danger fw-semibold" href="{% url 'logout-user' %}">
+          <a class="nav-link text-danger fw-semibold px-3 py-2 rounded" 
+             href="{% url 'logout-user' %}">
             Logout
           </a>
         </li>
+
         {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'home-page-view' %}">
+          <a class="nav-link px-3 py-2 rounded {% if request.resolver_match.url_name == 'login-user' %}active bg-secondary fw-semibold{% endif %}" 
+             href="{% url 'home-page-view' %}">
             Login
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'register-user' %}">
+          <a class="nav-link px-3 py-2 rounded {% if request.path == '/register/' %}active bg-secondary fw-semibold{% endif %}" 
+             href="{% url 'register-user' %}">
             Register
           </a>
         </li>

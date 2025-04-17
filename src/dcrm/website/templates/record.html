@@ -68,17 +68,27 @@
                 Home
         </button>
 
+
+        {% if user_role == 'Admin' %}
+
         <button type="button" 
                 class="btn btn-outline-danger px-4 py-2 rounded-pill shadow-sm fw-semibold"
                 onclick="window.location=`{% url 'delete_record' customer_record.id %}`">
                 Delete
         </button>
 
+        {% endif %}
+
+
+        {% if user_role == 'Admin' or user_role == 'Staff' %}
+
         <button type="button" 
                 class="btn btn-outline-info px-4 py-2 rounded-pill shadow-sm fw-semibold text-dark"
                 onclick="window.location=`{% url 'update_record' customer_record.id %}`">
                 Update
         </button>
+
+        {% endif %}
 
       </div>
 

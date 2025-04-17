@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm, CustomerRecordForm
 from .models import Record
+from django.contrib.auth.models import Group
+from .decorators import role_required
 
 
 def home_page_view(request):
@@ -42,17 +44,35 @@ def register_user(request):
     form = SignUpForm(request.POST or None)
 
     if form.is_valid():
-        form.save()
+        user = form.save(commit=False)  
+        # Don't save so we can assign group
 
+        role = form.cleaned_data['role']  
+        # Get selected role
+
+        user.save()  
+        # Now save user after modifying
+
+        # Assign user to selected group
+        try:
+            group = Group.objects.get(name=role.capitalize())
+            user.groups.add(group)
+
+        except Group.DoesNotExist:
+            messages.error(request, f"The group '{role}' does not exist. Please create it in admin panel.")
+            return redirect('register-user')
+
+        # Log in the user
         username = form.cleaned_data['username']
         password = form.cleaned_data['password1']
         user = authenticate(username=username, password=password)
         login(request, user)
-        messages.success(request, "You have Successfully Registered!")
+
+        messages.success(request, "You have Successfully Registered as " + role.capitalize() + "!")
         return redirect('home-page-view')
 
     context = {
-        'form' : form
+        'form': form
     }
 
     return render(request, 'register.html', context)
@@ -72,6 +92,7 @@ def customer_record(request, id):
         messages.success(request, "You must be logged in to view records")
         return redirect('home-page-view')
 
+@role_required(allowed_roles=['Admin'])
 def delete_record(request, id):
     if request.user.is_authenticated:
         delete_it = Record.objects.get(id = id)
@@ -94,7 +115,7 @@ def delete_record(request, id):
         messages.success(request, "You must be logged in to delete records")
         return redirect('home-page-view')
 
-
+@role_required(allowed_roles=['Admin', 'Staff'])
 def add_record(request):
     form = CustomerRecordForm(request.POST or None)
 
@@ -116,6 +137,7 @@ def add_record(request):
         messages.success(request, "You must be logged in to delete records")
         return redirect('home-page-view')
 
+@role_required(allowed_roles=['Admin', 'Staff'])
 def update_record(request, id):
     if request.user.is_authenticated:
         record = Record.objects.get(id = id)

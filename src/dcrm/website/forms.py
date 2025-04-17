@@ -4,6 +4,11 @@ from django import forms
 from .models import Record
 
 class SignUpForm(UserCreationForm):
+    ROLE_CHOICES = (
+        ('staff', 'Staff'),
+        ('viewer', 'Viewer'),
+    )
+
     email   = forms.EmailField(
                                 label = "", 
                                 widget = forms.TextInput(
@@ -34,6 +39,15 @@ class SignUpForm(UserCreationForm):
 # but are not included by default, so we define them explicitly and include
 # all required fields in Meta to display them in the form.
 
+    role = forms.ChoiceField(
+        choices=ROLE_CHOICES,
+        label='',
+        widget=forms.Select(attrs={
+            'class': 'form-control',
+            'placeholder': 'Select Role'
+        })
+    )
+
     class Meta:
         model  = User
         fields = ('username', 
@@ -41,7 +55,8 @@ class SignUpForm(UserCreationForm):
                   'last_name', 
                   'email', 
                   'password1', 
-                  'password2')
+                  'password2',
+                  'role')
 
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
