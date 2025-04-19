@@ -3,6 +3,7 @@ Scripts/
 Lib/
 Include/
 pyvenv.cfg
+.env
 
 # Python cache files
 __pycache__/
